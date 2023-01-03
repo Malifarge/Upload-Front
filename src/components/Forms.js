@@ -21,10 +21,19 @@ const Form = () => {
   const navigate = useNavigate()
 
   useEffect(()=>{
-    if(user){
-      navigate("/Profil")
+    if(user && sign){
+      photo()
+    }else{
+      if(user){
+       navigate("/Profil")
+      }
     }
   },[user])
+
+  const photo = async() =>{
+    await fetchPhoto(user._id,file)
+    navigate("/Profil")
+  }
 
   const handlePrenomChange = e =>{
     setPrenom(e.target.value)
@@ -65,15 +74,14 @@ const Form = () => {
         }
         const createUser = await CreateUser(newUser)
         setUser(createUser.user)
-        await fetchPhoto(user._id,file)
 
     }else{
-        const user = {
+        const logUser = {
           email,
           password,
         };
     
-        const { token } = await login(user);
+        const { token } = await login(logUser);
     
         if (token) {
           setToken(token);
