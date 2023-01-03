@@ -13,9 +13,9 @@
     return response
   }
 
-const fetchPhoto = async (id) =>{
+const fetchPhoto = async (id,file) =>{
     const formdata = new FormData()
-    formdata.append('photo', file, file.name)
+    formdata.append('profil_picture', file, file.name)
 
     const request = await fetch(`http://localhost:5000/auth/${id}`, {
       method: 'POST',
